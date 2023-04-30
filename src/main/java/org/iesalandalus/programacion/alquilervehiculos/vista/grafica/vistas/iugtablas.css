@@ -1,0 +1,66 @@
+* {
+	-fx-font: 14 arial;
+	-fx-base: #b0c4de;
+}
+
+.titled-pane .title {
+	-fx-background-radius: 20 20 0 0;
+	-fx-border-color: #4682b4;
+	-fx-border-radius: 20 20 0 0;
+}
+
+.titled-pane .content {
+	-fx-background-radius: 0 0 20 20;
+	-fx-border-color: #4682b4;
+	-fx-border-radius: 0 0 20 20;
+}
+
+.titled-pane .title .text {
+	-fx-font: bold 20 "arial";
+	
+}
+
+ .titled-pane .content {
+	-fx-background-color: #d8e2f3;
+}
+
+/*.table-view{
+   -fx-background-color: transparent;
+}*/
+
+.table-row-cell:selected {
+	-fx-background-color: #b0c4de;
+}
+
+/*.table-view .column-header {
+	-fx-base: #4682b4;
+}*/
+
+.table-view .column-header .label {
+	-fx-font-weight: bold;
+}
+
+.button {
+	-fx-background-radius: 10;
+        -fx-base: orange;
+        -fx-font: 24 "arial";
+        
+}
+
+.label{
+    -fx-base: orange;
+    -fx-font: 24 "arial";
+}
+
+#btAnadir, #btAceptar, #btListar {
+	-fx-font: 20 "arial";
+	-fx-base: #b6e7c9;
+        -fx-font-weight: bold;
+}
+
+#btCancelar, #btBorrar, #btCerrar {
+	-fx-font: 20 "arial";
+	-fx-base: #dc143c;
+}
+
+

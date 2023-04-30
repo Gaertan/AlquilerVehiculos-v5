@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" onMouseClicked="#deseleccionar" prefHeight="587.0" prefWidth="975.0" style="-fx-background-color: #b0c4de;" styleClass="mainFxmlClass" stylesheets="@iugventanas.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.grafica.controladoresvista.ControladorListadoAlquileres">
+   <children>
+      <TableView fx:id="tvAlquileres" layoutX="16.0" layoutY="74.0" onMouseClicked="#Seleccionar" stylesheets="@iugtablas.css">
+        <columns>
+          <TableColumn fx:id="tcNombre" prefWidth="152.0" text="Nombre" />
+            <TableColumn fx:id="tcDni" prefWidth="133.0" text="DNI" />
+            <TableColumn fx:id="tcTipo" maxWidth="215.0" minWidth="-1.0" prefWidth="147.0" text="Tipo" />
+            <TableColumn fx:id="tcMatricula" prefWidth="144.0" text="Matricula" />
+            <TableColumn fx:id="tcFecha" prefWidth="183.0" text="Fecha" />
+            <TableColumn fx:id="tcDevuelto" prefWidth="182.0" text="Devuelto" />
+        </columns>
+         <contextMenu>
+            <ContextMenu fx:id="cmOpcionesTabla">
+              <items>
+                <MenuItem fx:id="miBorrar" mnemonicParsing="false" onAction="#borrarClick" text="Borrar" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <HBox alignment="CENTER" layoutX="106.0" layoutY="486.0" prefHeight="79.0" prefWidth="717.0" spacing="20.0">
+         <children>
+            <Button fx:id="btAnadir" mnemonicParsing="false" onAction="#AddAlquiler" prefHeight="46.0" prefWidth="125.0" stylesheets="@iugtablas.css" text="Añadir" />
+            <Button fx:id="btBorrar" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#borrarClick" prefHeight="46.0" prefWidth="125.0" stylesheets="@iugtablas.css" text="Borrar" />
+            <Button fx:id="btVerAlquiler" mnemonicParsing="false" onAction="#verDetallesAlquiler" prefHeight="46.0" prefWidth="125.0" stylesheets="@iugtablas.css" text="Ver Alquiler" />
+            <Button fx:id="btVolver" mnemonicParsing="false" onAction="#volverClick" prefHeight="46.0" prefWidth="125.0" stylesheets="@iugtablas.css" text="Volver" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" top="10.0" />
+         </padding>
+      </HBox>
+      <Label fx:id="lbListadoAlquileres" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="2.0" prefHeight="53.0" prefWidth="541.0" text="Listado de Alquileres">
+         <font>
+            <Font name="Franklin Gothic Medium Italic" size="73.0" />
+         </font>
+      </Label>
+      <TextField fx:id="campoBuscar" layoutX="722.0" layoutY="41.0" onKeyPressed="#Buscar" prefHeight="26.0" prefWidth="190.0" />
+      <Label layoutX="625.0" layoutY="46.0" text="Buscar:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

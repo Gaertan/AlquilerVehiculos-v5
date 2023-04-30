@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clientes>
+    <cliente dni="54141689B">
+        <nombre tipodato="String">Angel Gar Gartean</nombre>
+        <telefono tipodato="String">622099498</telefono>
+    </cliente>
+    <cliente dni="94189253K">
+        <nombre tipodato="String">Andres Gar Gar Gar</nombre>
+        <telefono tipodato="String">622222222</telefono>
+    </cliente>
+    <cliente dni="04075976P">
+        <nombre tipodato="String">Andres G</nombre>
+        <telefono tipodato="String">666666666</telefono>
+    </cliente>
+</clientes>

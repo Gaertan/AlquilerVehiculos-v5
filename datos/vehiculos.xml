@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<vehiculos>
+    <vehiculo matricula="1111BBB" tipo="turismo">
+        <marca tipodato="String">Seat</marca>
+        <modelo tipodato="String">Leon</modelo>
+        <turismo>
+            <cilindrada tipodato="Integer">123</cilindrada>
+        </turismo>
+    </vehiculo>
+    <vehiculo matricula="2222BBB" tipo="furgoneta">
+        <marca tipodato="String">Taes</marca>
+        <modelo tipodato="String">Noel</modelo>
+        <furgoneta>
+            <plazas tipodato="Integer">6</plazas>
+            <pma tipodato="Integer">3000</pma>
+        </furgoneta>
+    </vehiculo>
+</vehiculos>

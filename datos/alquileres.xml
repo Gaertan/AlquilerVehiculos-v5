@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<alquileres>
+    <alquiler dni="54141689B" matricula="1111BBB">
+        <fechaAlquiler formato="dd/MM/yyyy" tipodato="LocalDate">29/04/2023</fechaAlquiler>
+        <fechaDevolucion formato="dd/MM/yyyy" tipodato="LocalDate"/>
+    </alquiler>
+</alquileres>
