@@ -9,14 +9,13 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.Modelo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.database.utilidades.MySQL;
 import org.iesalandalus.programacion.alquilervehiculos.vista.Vista;
 
-public class  Controlador {
-    private static Controlador instancia = null;
+public class  Controlador2 {
+    private static Controlador2 instancia = null;
 	private Vista vistaTexto;
 	private Modelo modeloCascada;
-    private Controlador(Modelo modeloCascada, Vista vistaTexto) {
+    private Controlador2(Modelo modeloCascada, Vista vistaTexto) {
         if(modeloCascada != null && vistaTexto != null) {
             this.modeloCascada = modeloCascada;
             this.vistaTexto = vistaTexto;
@@ -26,7 +25,7 @@ public class  Controlador {
 
 
 
-	public void  comenzar(){MySQL.crearDatabase();modeloCascada.comenzar();vistaTexto.comenzar();}
+	public void  comenzar(){modeloCascada.comenzar();vistaTexto.comenzar();}
 
 	public void  terminar(){modeloCascada.terminar();vistaTexto.terminar();}
 
@@ -89,12 +88,12 @@ public class  Controlador {
 
 
 
-    public static Controlador getInstance(Modelo modeloCascada, Vista vistaTexto) {
-        if(instancia == null) {instancia = new Controlador(modeloCascada, vistaTexto);}
+    public static Controlador2 getInstance(Modelo modeloCascada, Vista vistaTexto) {
+        if(instancia == null) {instancia = new Controlador2(modeloCascada, vistaTexto);}
 		return instancia;
 
     }
-    public static Controlador getInstance() {
+    public static Controlador2 getInstance() {
 		return instancia;
 
     }
