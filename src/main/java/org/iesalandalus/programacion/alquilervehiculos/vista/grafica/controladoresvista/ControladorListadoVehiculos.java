@@ -42,8 +42,7 @@ public class ControladorListadoVehiculos implements Initializable{
     @FXML TableColumn<Vehiculo, String> tipoColumn = new TableColumn<>("tipo");
 
 	private	Controlador controller;
-    private List<Vehiculo> vehiculos;
-    private ObservableList<Vehiculo> obsVehiculos;
+//    private ObservableList<Vehiculo> obsVehiculos;
     private ObservableList<Vehiculo> obsVehiculosVisible;
     private String filtro = "";
     private Vehiculo registro;
@@ -70,6 +69,10 @@ public class ControladorListadoVehiculos implements Initializable{
     {	tvVehiculos.getSelectionModel().clearSelection();
     	this.registro = null;
     }
+    void deseleccionar()
+    {	tvVehiculos.getSelectionModel().clearSelection();
+    	this.registro = null;
+    }
     @FXML
     void Buscar(KeyEvent event)
     {
@@ -88,7 +91,7 @@ public class ControladorListadoVehiculos implements Initializable{
     			this.obsVehiculosVisible.add(v);
     		}
     	}
-
+		this.tvVehiculos.setItems(obsVehiculosVisible);
     	this.tvVehiculos.refresh();
     }
 	public void ocultarBtnVolver()
@@ -100,28 +103,21 @@ public class ControladorListadoVehiculos implements Initializable{
     @FXML
     void borrarClick(ActionEvent event)
     {
-    	ObservableList<Vehiculo> obsTodoVehiculos,obsSeleccionVehiculos;
-
-        //Obtenemos todos los clientes
-    	obsTodoVehiculos=tvVehiculos.getItems();
-
         //Obtenermos los clientes seleccionados
-    	obsSeleccionVehiculos=tvVehiculos.getSelectionModel().getSelectedItems();
+    	 List<Vehiculo> selectedItems=tvVehiculos.getSelectionModel().getSelectedItems();
 
     	if (Dialogos.mostrarDialogoConfirmacion("Borrar vehiculo", "¿Estás seguro de que quieres borrar el vehiculo?", null))
     	{
     		//Para cada profesor seleccionado lo borramos del conjunto total.
-    		for (Vehiculo v:obsSeleccionVehiculos)
+    		for (Vehiculo v:selectedItems)
     		{	try {
-				controller.borrar(v);
+				controller.borrar((v));
 			} catch (OperationNotSupportedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}vehiculos.remove(v);
-    			obsTodoVehiculos.remove(v);
-
+			}
     		}
-    	}
+    	}refrescarTabla();
     }
 
     @FXML
@@ -167,7 +163,7 @@ public class ControladorListadoVehiculos implements Initializable{
 
     @FXML
     void AddVehiculo(ActionEvent event)
-    {
+    {	deseleccionar();
     	try
     	{
     		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../vistas/AnadirVehiculo.fxml"));
@@ -176,8 +172,8 @@ public class ControladorListadoVehiculos implements Initializable{
 
             ControladorAnadirVehiculo cAnadirVehiculo=fxmlLoader.getController();
             cAnadirVehiculo.setControlador(this.controller);
-            cAnadirVehiculo.setListado(this.obsVehiculos);
-            cAnadirVehiculo.setRegistro(this.registro);
+//            cAnadirVehiculo.setListado(this.obsVehiculos);
+//            cAnadirVehiculo.setRegistro(this.registro);
 			Stage nuevoEscenario=new Stage();
             nuevoEscenario.initModality(Modality.APPLICATION_MODAL);
             nuevoEscenario.setTitle("Añadir vehiculo...");
@@ -185,8 +181,8 @@ public class ControladorListadoVehiculos implements Initializable{
             nuevoEscenario.setScene(escena);
             nuevoEscenario.showAndWait();
 
-            Vehiculo v = cAnadirVehiculo.getRegistro();
-            this.obsVehiculos.add(v);
+//            Vehiculo v = cAnadirVehiculo.getRegistro();
+//            this.obsVehiculos.add(v);
             this.refrescarTabla();
     	}
     	catch(Exception e)
@@ -222,8 +218,8 @@ public class ControladorListadoVehiculos implements Initializable{
 
     public void cargaListadoVehiculos(List<Vehiculo> coleccionVehiculos)
     {
-    	vehiculos=coleccionVehiculos;
-    	obsVehiculos.setAll(coleccionVehiculos);
+//    	obsVehiculos.setAll(coleccionVehiculos);
+		this.tvVehiculos.setItems(obsVehiculosVisible);
 
     }
 	@Override
@@ -241,7 +237,7 @@ public class ControladorListadoVehiculos implements Initializable{
 			tvVehiculos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
 			this.filtro = "";
-			obsVehiculos = FXCollections.observableArrayList();
+//			obsVehiculos = FXCollections.observableArrayList();
 			obsVehiculosVisible = FXCollections.observableArrayList();
 			this.tvVehiculos.setItems(obsVehiculosVisible);
 
@@ -262,6 +258,6 @@ public class ControladorListadoVehiculos implements Initializable{
 //    	clientes = obsClientes;
 //       Platform.exit();
 //    }
-    protected ObservableList<Vehiculo> getObsVehiculos(){return this.obsVehiculos;}
+//    protected ObservableList<Vehiculo> getObsVehiculos(){return this.obsVehiculos;}
 	public void setControlador(Controlador controller) {this.controller=controller;}
 }

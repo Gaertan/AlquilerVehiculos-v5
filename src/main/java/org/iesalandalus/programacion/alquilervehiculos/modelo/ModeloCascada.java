@@ -115,27 +115,33 @@ public class ModeloCascada extends Modelo {
 	@Override
 	public void borrar(Cliente cliente) throws OperationNotSupportedException {
 
-		//borramos todos los alquileres pertenecientes al cliente
-		for(Alquiler alq:getAlquileres(cliente)) {
-			if(alq.getCliente().equals(cliente)) {alquileres.borrar(alq);}
-
-		}
-		for(Cliente clie:getClientes()) {
-			if(clie.equals(cliente)) {clientes.borrar(clie);}
-
-		}
+//		//borramos todos los alquileres pertenecientes al cliente
+//		for(Alquiler alq:getAlquileres(cliente)) {
+//			if(alq.getCliente().equals(cliente)) {alquileres.borrar(alq);}
+//
+//		}
+//		for(Cliente clie:getClientes()) {
+//			if(clie.equals(cliente)) {clientes.borrar(clie);}
+//
+//		}
+		clientes.borrar(cliente);
+		
 	}
 
 	@Override
 	public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException {		//borramos todos los alquileres pertenecientes al cliente
-	for(Alquiler alq:getAlquileres(vehiculo)) {
-		if(alq.getVehiculo().equals(vehiculo)) {alquileres.borrar(alq);}
+//	for(Alquiler alq:getAlquileres(vehiculo)) {
+//		if(alq.getVehiculo().equals(vehiculo)) {alquileres.borrar(alq);}
+//
+//	}
+//	for(Vehiculo turi:getVehiculos()) {
+//		if(turi.equals(vehiculo)) {vehiculos.borrar(vehiculo);}
+//
+//	}
 
+		vehiculos.borrar(vehiculo);
+	
 	}
-	for(Vehiculo turi:getVehiculos()) {
-		if(turi.equals(vehiculo)) {vehiculos.borrar(vehiculo);}
-
-	}}
 
 	@Override
 	public void borrar(Alquiler alquiler) throws OperationNotSupportedException {alquileres.borrar(alquiler);}

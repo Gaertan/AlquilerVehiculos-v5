@@ -115,7 +115,7 @@ public class ControladorListadoClientes implements Initializable{
 				controller.borrar(p);
 			} catch (OperationNotSupportedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
     			obsTodoProfesores.remove(p);
     			clientes.remove(p);

@@ -10,6 +10,7 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.database.Alquileres;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -60,7 +61,6 @@ public class ControladorAnadirAlquiler implements Initializable {
     @FXML private TextField textoSus;
     @FXML private TextField tfDni;
     @FXML private TextField tfMatricula;
-	private ObservableList<Alquiler> obsAlquileres;
 	private ObservableList<Cliente> obsClientes = FXCollections.observableArrayList();
 	private ObservableList<Vehiculo> obsVehiculos = FXCollections.observableArrayList();
 
@@ -76,10 +76,10 @@ public class ControladorAnadirAlquiler implements Initializable {
 		try {
 			alquiler = new Alquiler(controller.buscar(clienteDum),controller.buscar(vehiculoDum),dpFechaAlquiler.getValue());
 		}
-			catch (Exception e) {aviso(e.getMessage(), AlertType.ERROR);}
+			catch (Exception e) {aviso(e.getMessage(), AlertType.ERROR);e.printStackTrace();}
     	try {
 			controller.insertar(alquiler);}
-			catch (Exception e) {aviso(e.getMessage(), AlertType.ERROR);}
+			catch (Exception e) {aviso(e.getMessage(), AlertType.ERROR);e.printStackTrace();}
     	controllerListado.refrescarTabla();
     	}
 
@@ -165,8 +165,13 @@ public class ControladorAnadirAlquiler implements Initializable {
 
 			}
 		List<Cliente> clientes = controller.getClientes();
-		clientes.removeAll(clientesAlquilados);
+	clientes.removeAll(clientesAlquilados);
 		return clientes;
+		
+//		List<Cliente> clientesLibres = new ArrayList<>();
+//		clientesLibres = controller.getClientes();
+//		for(Cliente c:clientesLibres) {if(((Alquileres) Alquileres.getInstancia()).getAlquilerAbierto(c)!=null) {clientesLibres.remove(c);}}
+//		return clientesLibres;
 
 	}
 	private List<Vehiculo> getVehiculosLibres(){
@@ -184,8 +189,6 @@ public class ControladorAnadirAlquiler implements Initializable {
 
 
 public void setListado(ObservableList<Alquiler> obsAlquileres) {
-	this.obsAlquileres=obsAlquileres;
-
 	this.obsClientes.setAll(getClientesLibres());
 	this.obsVehiculos.setAll(getVehiculosLibres());
 

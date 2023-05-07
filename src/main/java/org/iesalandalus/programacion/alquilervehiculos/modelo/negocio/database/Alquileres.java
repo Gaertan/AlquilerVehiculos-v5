@@ -83,7 +83,7 @@ public class Alquileres implements IAlquileres {
 		
 		
 		try {
-			String sentenciaStr = "select matricula, dni, fechaAlquiler, fechaDevolucion from alquileres order by fechaAlquiler where dni=?";
+			String sentenciaStr = "select matricula, dni, fechaAlquiler, fechaDevolucion from alquileres  where dni=? order by fechaAlquiler";
 			PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
 			sentencia.setString(1, clienteP.getDni());
 			ResultSet filas = sentencia.executeQuery(sentenciaStr);
@@ -117,7 +117,7 @@ public class Alquileres implements IAlquileres {
 		
 		
 		try {
-			String sentenciaStr = "select matricula, dni, fechaAlquiler, fechaDevolucion from alquileres order by fechaAlquiler where matricula=?";
+			String sentenciaStr = "select matricula, dni, fechaAlquiler, fechaDevolucion from alquileres where matricula like ?";
 			PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
 			sentencia.setString(1, vehiculoP.getMatricula());
 			ResultSet filas = sentencia.executeQuery(sentenciaStr);
@@ -219,14 +219,16 @@ public class Alquileres implements IAlquileres {
 		if(comprobarAlquiler(alquiler.getCliente(),alquiler.getVehiculo(),alquiler.getFechaAlquiler())) {
 
 			try {
-				String sentenciaStr = "insert into alquileres values (?, ?, ?, ?)";
+				String sentenciaStr = "insert into alquileres values (?, ?, ?, null)";
 				PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
 				sentencia.setString(1, alquiler.getVehiculo().getMatricula());
 				sentencia.setString(2, alquiler.getCliente().getDni());
 				  Date sqlDateAlquiler = Date.valueOf(alquiler.getFechaAlquiler());
-				  Date sqlDateDevolucion = Date.valueOf(alquiler.getFechaDevolucion());
-				sentencia.setDate(3,sqlDateAlquiler);
-				sentencia.setDate(4,sqlDateDevolucion);
+				  sentencia.setDate(3,sqlDateAlquiler);
+//				  Date sqlDateDevolucion;
+//				 if(alquiler.getFechaDevolucion()!=null) {sqlDateDevolucion = Date.valueOf(alquiler.getFechaDevolucion());sentencia.setDate(4,sqlDateDevolucion);}
+//				 else {sentencia.setNull(4, Types.DATE);}
+
 
 				sentencia.executeUpdate();
 			} catch (SQLIntegrityConstraintViolationException e) {
@@ -295,18 +297,14 @@ public class Alquileres implements IAlquileres {
 				sentencia.setDate(4, sqlDateDevolucion);
 				ResultSet filas = sentencia.executeQuery();
 				while (filas.next()) {
-					String matricula2 = filas.getString(1);
-					String dni21 = filas.getString(2);
-					Date fechaAlquilerDate = filas.getDate(3);LocalDate fechaAlquiler2 = fechaAlquilerDate.toLocalDate();
 					Date fechaDevolucionDate = null;
-					LocalDate fechaDevolucion2 = null;
 					try {fechaDevolucionDate = filas.getDate(3); fechaDevolucion = fechaDevolucionDate.toLocalDate();} catch (Exception e) {/*e.printStackTrace();*/}
 					Cliente clienteBuscar = new Cliente("Andres Gar",dni,"622099498");
 					Cliente cliente = Clientes.getInstancia().buscar(clienteBuscar);
 					Vehiculo vehiculoBuscar = new Turismo("Seat","Leon",100,matricula);
 					Vehiculo vehiculo = Vehiculos.getInstancia().buscar(vehiculoBuscar);
 					 alquilerReturn = new Alquiler(cliente,vehiculo,fechaAlquiler);
-					if (fechaDevolucion!=null) {alquiler.devolver(fechaDevolucion);}			
+					if (fechaDevolucion!=null) {alquilerReturn.devolver(fechaDevolucion);}			
 				}
 				}
 				
@@ -328,7 +326,7 @@ public class Alquileres implements IAlquileres {
 					Vehiculo vehiculoBuscar = new Turismo("Seat","Leon",100,matricula);
 					Vehiculo vehiculo = Vehiculos.getInstancia().buscar(vehiculoBuscar);
 					 alquilerReturn = new Alquiler(cliente,vehiculo,fechaAlquiler);
-					if (fechaDevolucion!=null) {alquiler.devolver(fechaDevolucion);}		
+					if (fechaDevolucion!=null) {alquilerReturn.devolver(fechaDevolucion);}		
 				}
 				}		
 		} catch (SQLException e) {
@@ -345,17 +343,20 @@ public class Alquileres implements IAlquileres {
 	        throw new NullPointerException("ERROR: No se puede borrar un alquiler nulo.");
 	    }
 
-	    try (
-	         PreparedStatement pst = conexion.prepareStatement("DELETE FROM alquileres WHERE matricula = ? AND dni = ? AND fechaAlquiler = ? AND fechaDevolucion = ?")) {
+	    try 
+	    { 
+//	    	PreparedStatement pst = conexion.prepareStatement("DELETE FROM alquileres WHERE matricula = ? AND dni = ? AND fechaAlquiler = ? AND fechaDevolucion = ?");
+	    	PreparedStatement pst = conexion.prepareStatement("DELETE FROM alquileres WHERE matricula = ? AND dni = ? AND fechaAlquiler = ?");
+
 
 	        pst.setString(1, alquiler.getVehiculo().getMatricula());
 	        pst.setString(2, alquiler.getCliente().getDni());
 	        pst.setDate(3, Date.valueOf(alquiler.getFechaAlquiler()));
-	        if (alquiler.getFechaDevolucion() == null) {
-	            pst.setNull(4, Types.DATE);
-	        } else {
-	            pst.setDate(4, Date.valueOf(alquiler.getFechaDevolucion()));
-	        }
+//	        if (alquiler.getFechaDevolucion() == null) {
+//	            pst.setNull(4, Types.DATE);
+//	        } else {
+//	            pst.setDate(4, Date.valueOf(alquiler.getFechaDevolucion()));
+//	        }
 
 	        int filasAfectadas = pst.executeUpdate();
 
@@ -363,7 +364,8 @@ public class Alquileres implements IAlquileres {
 	            throw new OperationNotSupportedException("ERROR: No existe ningún alquiler igual.");
 	        }
 
-	    } catch (SQLException e) {
+	    } 
+	    catch (SQLException e) {
 	        throw new OperationNotSupportedException("ERROR: Error al borrar el alquiler.");
 	    }
 	}

@@ -31,13 +31,6 @@ public class Vehiculos implements IVehiculos {
 			private final String AUTOBUS="autobus";
 			private final String FURGONETA="furgoneta";
 
-
-
-
-
-
-
-
 	private static Vehiculos instance = new Vehiculos();
 	private Connection conexion;
 
@@ -51,14 +44,14 @@ public class Vehiculos implements IVehiculos {
 			String sentenciaStr = "select modelo, marca,matricula, cilindrada, plazas, pma, tipo from vehiculos";
 			PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
 			ResultSet filas = sentencia.executeQuery();
-			if (filas.next()) {
+			while (filas.next()) {
 			
 				String marca = filas.getString(1);
 				String modelo = filas.getNString(2);
 				String matricula = filas.getString(3);
-				Integer cilindrada = filas.getInt(4);
-				Integer plazas = filas.getInt(5);
-				Integer pma =filas.getInt(6);
+				int cilindrada = filas.getInt(4);
+				int plazas = filas.getInt(5);
+				int pma =filas.getInt(6);
 				String tipo=filas.getString(7);
 				Vehiculo vehiculo = null;
 				if(tipo.equalsIgnoreCase(TURISMO)) {
@@ -102,9 +95,9 @@ public class Vehiculos implements IVehiculos {
 		String modelo = vehiculo.getModelo();
 		String marca = vehiculo.getMarca();
 		String matricula = vehiculo.getMatricula();
-		Integer cilindrada = null;
-		Integer plazas = null;
-		Integer pma = null;
+		int cilindrada = 0;
+		int plazas = 0 ;
+		int pma = 0;
 		try {
 			String sentenciaStr = "insert into vehiculos values (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
@@ -128,7 +121,7 @@ public class Vehiculos implements IVehiculos {
 
 			sentencia.executeUpdate();
 		
-		} catch (SQLIntegrityConstraintViolationException e) {
+		} catch (SQLIntegrityConstraintViolationException e) {e.printStackTrace();
 			throw new OperationNotSupportedException("ERROR: Ya existe un vehiculo con esa matricula.");
 		} catch (SQLException e) {
 			throw new OperationNotSupportedException( e.getMessage());
@@ -144,7 +137,7 @@ public class Vehiculos implements IVehiculos {
 		}
 
 		try {
-			String sentenciaStr = "select modelo, marca, cilindrada, plazas, pma, tipo from vehiculos where matricula=?";
+			String sentenciaStr = "select marca, modelo, cilindrada, plazas, pma, tipo from vehiculos where matricula=?";
 			PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
 			sentencia.setString(1, vehiculo.getMatricula());
 			ResultSet filas = sentencia.executeQuery();
@@ -152,9 +145,9 @@ public class Vehiculos implements IVehiculos {
 				String marca = filas.getString(1);
 				String modelo = filas.getNString(2);
 				String matricula = vehiculo.getMatricula();
-				Integer cilindrada = filas.getInt(3);
-				Integer plazas = filas.getInt(4);
-				Integer pma =filas.getInt(5);
+				int cilindrada = filas.getInt(3);
+				int plazas = filas.getInt(4);
+				int pma =filas.getInt(5);
 				String tipo=filas.getString(6);
 				
 				if(tipo.equalsIgnoreCase(TURISMO)) {
@@ -179,9 +172,10 @@ public class Vehiculos implements IVehiculos {
 			throw new NullPointerException("ERROR: No se puede borrar un vehiculo nulo.");
 		}
 		try {
-			String sentenciaStr = "delete from vehiculos where matricula = ?";
+			String sentenciaStr = "delete from vehiculos where vehiculos.matricula = ? ";
 			PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
 			sentencia.setString(1, vehiculo.getMatricula());
+		
 			if (sentencia.executeUpdate() == 0) {
 				throw new OperationNotSupportedException("ERROR: No existe ningún vehiculo con esa matricula.");
 			}

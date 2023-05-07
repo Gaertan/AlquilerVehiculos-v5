@@ -88,7 +88,7 @@ public class ControladorListadoAlquileres implements Initializable{
     	this.registro = null;
     	this.tvAlquileres.getSelectionModel().select(null);
     	this.obsAlquileresVisible.clear();
-    	for(Alquiler v:obsAlquileres)
+    	for(Alquiler v:controller.getAlquileres())
     	{
     		if(this.filtro.isEmpty()||this.filtro.equals("")||this.filtro==null||
     				v.getFechaAlquiler().toString().toLowerCase().contains(filtro.toLowerCase())||
@@ -119,10 +119,9 @@ public class ControladorListadoAlquileres implements Initializable{
     @FXML
     void borrarClick(ActionEvent event)
     {
-    	ObservableList<Alquiler> obsTodoVehiculos,obsSeleccionVehiculos;
+    	ObservableList<Alquiler> obsSeleccionVehiculos;
 
-        //Obtenemos todos los clientes
-    	obsTodoVehiculos=tvAlquileres.getItems();
+
 
         //Obtenermos los clientes seleccionados
     	obsSeleccionVehiculos=tvAlquileres.getSelectionModel().getSelectedItems();
@@ -131,18 +130,12 @@ public class ControladorListadoAlquileres implements Initializable{
     	{
     		//Para cada profesor seleccionado lo borramos del conjunto total.
     		for (Alquiler v:obsSeleccionVehiculos)
-    		{	try {
-				controller.borrar(v);
-			} catch (OperationNotSupportedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}try {
-				controller.borrar(v);
-			} catch (OperationNotSupportedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    			obsTodoVehiculos.remove(v);
+	    		{	try {
+					controller.borrar(v);
+					} 
+	    		catch (OperationNotSupportedException e) {
+					e.printStackTrace();
+				}
 
     		}
     	}
