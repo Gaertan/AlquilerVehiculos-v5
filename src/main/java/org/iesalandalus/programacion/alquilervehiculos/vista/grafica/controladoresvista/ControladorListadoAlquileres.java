@@ -47,8 +47,7 @@ public class ControladorListadoAlquileres implements Initializable{
     @FXML private TableColumn<Alquiler, String> tcTipo;
 
 	private	Controlador controller;
-    private List<Alquiler> alquileres;
-    private ObservableList<Alquiler>obsAlquileres = FXCollections.observableArrayList();
+//    private ObservableList<Alquiler>obsAlquileres = FXCollections.observableArrayList();
     private ObservableList<Alquiler>obsAlquileresVisible = FXCollections.observableArrayList();
     private String filtro = "";
     private Alquiler registro;
@@ -197,7 +196,7 @@ public class ControladorListadoAlquileres implements Initializable{
             ControladorAnadirAlquiler cAnadirAlquiler=fxmlLoader.getController();
             cAnadirAlquiler.setControlador(this.controller);
             cAnadirAlquiler.setControladorListado(this);
-            cAnadirAlquiler.setListado(this.obsAlquileres);
+            cAnadirAlquiler.setListado();
             cAnadirAlquiler.setRegistro(this.registro);
 			Stage nuevoEscenario=new Stage();
             nuevoEscenario.initModality(Modality.APPLICATION_MODAL);
@@ -206,9 +205,9 @@ public class ControladorListadoAlquileres implements Initializable{
             nuevoEscenario.setScene(escena);
             nuevoEscenario.showAndWait();
 
-            Alquiler v = cAnadirAlquiler.getRegistro();
+//            Alquiler v = cAnadirAlquiler.getRegistro();
 //            controller.insertar(v);
-            this.obsAlquileres.add(v);
+//            this.obsAlquileres.add(v);
             this.refrescarTabla();
     	}
     	catch(Exception e)
@@ -244,8 +243,7 @@ public class ControladorListadoAlquileres implements Initializable{
 
     public void cargaListadoAlquileres(List<Alquiler> coleccionAlquileres)
     {
-    	alquileres=coleccionAlquileres;
-    	obsAlquileres.setAll(coleccionAlquileres);
+//    	obsAlquileres.setAll(coleccionAlquileres);
     	obsAlquileresVisible.setAll(coleccionAlquileres);
         this.refrescarTabla();
 
@@ -253,7 +251,7 @@ public class ControladorListadoAlquileres implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-	    tcDevuelto.setText("Devuelto");
+//	    tcDevuelto.setText("Devuelto");
 	    // value factories:
 	    //pone devuelto si la fecha devol. es nula
 	    tcDevuelto.setCellValueFactory(cellData -> {
@@ -306,6 +304,6 @@ public class ControladorListadoAlquileres implements Initializable{
 //    	clientes = obsClientes;
 //       Platform.exit();
 //    }
-    protected ObservableList<Alquiler> getObsVehiculos(){return this.obsAlquileres;}
+//    protected ObservableList<Alquiler> getObsVehiculos(){return this.obsAlquileres;}
 	public void setControlador(Controlador controller) {this.controller=controller;}
 }

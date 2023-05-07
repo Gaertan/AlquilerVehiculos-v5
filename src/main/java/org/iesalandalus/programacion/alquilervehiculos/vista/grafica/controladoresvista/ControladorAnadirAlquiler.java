@@ -1,9 +1,15 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.grafica.controladoresvista;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.controlador.Controlador;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
@@ -11,6 +17,7 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.database.Alquileres;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.database.utilidades.MySQL;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -159,36 +166,81 @@ public class ControladorAnadirAlquiler implements Initializable {
 	dpFechaDevolucion.setDisable(true);
 		}
 	private List<Cliente> getClientesLibres(){
-		List<Cliente> clientesAlquilados = new ArrayList<>();
-			for(Alquiler a:controller.getAlquileres()) {
-				if (a.getFechaDevolucion()==null)clientesAlquilados.add(a.getCliente());
-
-			}
-		List<Cliente> clientes = controller.getClientes();
-	clientes.removeAll(clientesAlquilados);
-		return clientes;
-		
-//		List<Cliente> clientesLibres = new ArrayList<>();
-//		clientesLibres = controller.getClientes();
-//		for(Cliente c:clientesLibres) {if(((Alquileres) Alquileres.getInstancia()).getAlquilerAbierto(c)!=null) {clientesLibres.remove(c);}}
-//		return clientesLibres;
-
+//		List<Cliente> clientesAlquilados = new ArrayList<>();
+//			for(Alquiler a:controller.getAlquileres()) {
+//				if (a.getFechaDevolucion()==null)clientesAlquilados.add(a.getCliente());
+//
+//			}
+//		List<Cliente> clientes = controller.getClientes();
+//	clientes.removeAll(clientesAlquilados);
+//		return clientes;
+//		
+	    ArrayList<Cliente> clientes = new ArrayList<>();
+	    try {
+	        Connection conexion = MySQL.establecerConexion(); // Método que obtiene la conexión a la base de datos
+	        String sentenciaStr = "SELECT c.nombre, c.dni, c.telefono FROM clientes c " +
+	                "LEFT JOIN alquileres a ON c.dni = a.dni " +
+	                "WHERE a.dni IS NULL OR a.fechaDevolucion IS NOT NULL";
+	        PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
+	        ResultSet resultado = sentencia.executeQuery();
+	        while (resultado.next()) {
+	            String nombre = resultado.getString("nombre");
+	            String dni = resultado.getString("dni");
+	            String telefono = resultado.getString("telefono");
+	            Cliente cliente = new Cliente(nombre, dni, telefono);
+	            clientes.add(cliente);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return clientes;
 	}
 	private List<Vehiculo> getVehiculosLibres(){
-		List<Vehiculo> vehiculosAlquilados = new ArrayList<>();
-			for(Alquiler a:controller.getAlquileres()) {
-				if (a.getFechaDevolucion()==null)vehiculosAlquilados.add(a.getVehiculo());
+//		List<Vehiculo> vehiculosAlquilados = new ArrayList<>();
+//			for(Alquiler a:controller.getAlquileres()) {
+//				if (a.getFechaDevolucion()==null)vehiculosAlquilados.add(a.getVehiculo());
+//
+//			}
+//		List<Vehiculo> vehiculos = controller.getVehiculos();
+//		vehiculos.removeAll(vehiculosAlquilados);
+//		return vehiculos;
 
-			}
-		List<Vehiculo> vehiculos = controller.getVehiculos();
-		vehiculos.removeAll(vehiculosAlquilados);
-		return vehiculos;
+		
+	    ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+	    try {
+	        Connection conexion = MySQL.establecerConexion(); // Método que obtiene la conexión a la base de datos
+	        String sentenciaStr = "SELECT v.modelo, v.marca, v.matricula FROM vehiculos v " +
+	                "LEFT JOIN alquileres a ON v.matricula = a.matricula " +
+	                "WHERE a.matricula IS NULL OR a.fechaDevolucion IS NOT NULL";
+	        PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
+	        ResultSet resultado = sentencia.executeQuery();
+	        while (resultado.next()) {
 
+	        	
+	        	try {
+					Vehiculo vehiculo = controller.buscar(new Turismo(resultado.getString("marca"),resultado.getString("modelo"),123,resultado.getString("matricula")));
+					vehiculos.add(vehiculo);
+				} catch (OperationNotSupportedException e) {
+					e.printStackTrace();
+				}
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return vehiculos;
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 
 
-public void setListado(ObservableList<Alquiler> obsAlquileres) {
+public void setListado() {
 	this.obsClientes.setAll(getClientesLibres());
 	this.obsVehiculos.setAll(getVehiculosLibres());
 

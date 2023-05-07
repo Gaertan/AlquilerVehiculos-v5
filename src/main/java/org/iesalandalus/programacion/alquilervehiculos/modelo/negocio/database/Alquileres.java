@@ -59,7 +59,7 @@ public class Alquileres implements IAlquileres {
 				Date fechaAlquilerDate = filas.getDate(3);LocalDate fechaAlquiler = fechaAlquilerDate.toLocalDate();
 				Date fechaDevolucionDate = null;
 				LocalDate fechaDevolucion = null;
-				try {fechaDevolucionDate = filas.getDate(3); fechaDevolucion = fechaDevolucionDate.toLocalDate();} catch (Exception e) {/*e.printStackTrace();*/}
+				try {fechaDevolucionDate = filas.getDate(4); fechaDevolucion = fechaDevolucionDate.toLocalDate();} catch (Exception e) {/*e.printStackTrace();*/}
 				Cliente clienteBuscar = new Cliente("Andres Gar",dni,"622099498");
 				Cliente cliente = Clientes.getInstancia().buscar(clienteBuscar);
 				Vehiculo vehiculoBuscar = new Turismo("Seat","Leon",100,matricula);
