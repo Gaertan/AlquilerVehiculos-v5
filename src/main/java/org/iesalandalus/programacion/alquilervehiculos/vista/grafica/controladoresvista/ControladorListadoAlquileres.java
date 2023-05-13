@@ -76,11 +76,24 @@ public class ControladorListadoAlquileres implements Initializable{
     {	tvAlquileres.getSelectionModel().clearSelection();
     	this.registro = null;
     }
+    void deseleccionar()
+    {	tvAlquileres.getSelectionModel().clearSelection();
+    	this.registro = null;
+    }
     @FXML
     void Buscar(KeyEvent event)
     {
     	this.filtro = this.campoBuscar.getText();
     	this.refrescarTabla();
+    }
+    public void setBuscar(String texto) {
+    	this.campoBuscar.setText(texto);
+    	this.campoBuscar.setDisable(true);
+    	this.filtro = this.campoBuscar.getText();
+    	this.refrescarTabla();
+    	
+    	
+    	
     }
     public void refrescarTabla()
     {
@@ -153,10 +166,7 @@ public class ControladorListadoAlquileres implements Initializable{
 
             //Creamos la escena
             Scene escena=new Scene(raiz);
-
-            //Obtenermos el profesor seleccionado
             Alquiler vehiculoSeleccionado=tvAlquileres.getSelectionModel().getSelectedItem();
-
             if (vehiculoSeleccionado!=null)
             {
                 //Pasamos al controlador de la escena el profesor seleccionado
@@ -173,6 +183,7 @@ public class ControladorListadoAlquileres implements Initializable{
                 nuevoEscenario.setScene(escena);
                 this.refrescarTabla();
                 nuevoEscenario.showAndWait();
+                this.refrescarTabla();
             }
             else
                 Dialogos.mostrarDialogoAdvertencia("ERROR Listado alquileres", "Debe seleccionar un alquiler para mostrar toda su información");
@@ -186,7 +197,7 @@ public class ControladorListadoAlquileres implements Initializable{
 
     @FXML
     void AddAlquiler(ActionEvent event)
-    {
+    {		    deseleccionar();
     	try
     	{
     		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../vistas/AnadirAlquiler.fxml"));
@@ -250,6 +261,9 @@ public class ControladorListadoAlquileres implements Initializable{
     }
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+
+
 
 //	    tcDevuelto.setText("Devuelto");
 	    // value factories:

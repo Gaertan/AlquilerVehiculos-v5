@@ -110,7 +110,7 @@ public class ControladorAnadirClienteDEPRECATED{
 			cListadoAlquileres.ocultarBtnVolver();
 			cListadoAlquileres.ocultarBtnAdd();
 //			cListadoAlquileres.refrescarTabla();
-
+			cListadoAlquileres.setBuscar(registro.getDni());
 			// Creamos la escena
 			Scene escena = new Scene(root);
 

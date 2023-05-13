@@ -83,10 +83,10 @@ public class Alquileres implements IAlquileres {
 		
 		
 		try {
-			String sentenciaStr = "select matricula, dni, fechaAlquiler, fechaDevolucion from alquileres  where dni=? order by fechaAlquiler";
+			String sentenciaStr = "select matricula, dni, fechaAlquiler, fechaDevolucion from alquileres where dni = ? ";
 			PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
 			sentencia.setString(1, clienteP.getDni());
-			ResultSet filas = sentencia.executeQuery(sentenciaStr);
+			ResultSet filas = sentencia.executeQuery();
 			while (filas.next()) {
 				String matricula = filas.getString(1);
 				String dni = filas.getString(2);
@@ -251,15 +251,10 @@ public class Alquileres implements IAlquileres {
 		sentencia = conexion.prepareStatement(sentenciaStr);
 		sentencia.setDate(1, Date.valueOf(fechaDevolucion));
         sentencia.setString(2, cliente.getDni());
-        int filasModificadas = sentencia.executeUpdate();
-        if (filasModificadas == 0) {throw new OperationNotSupportedException("ERROR: No se ha encontrado ningún alquiler activo para el cliente especificado.");}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
+        sentencia.executeUpdate();}
 
-
-        // Comprobamos que se haya modificado algún registro
-       
+	catch (SQLException e) {
+			e.printStackTrace();}
 	}
 	@Override
 	public void devolver(Vehiculo vehiculo,LocalDate fechaDevolucion) throws NullPointerException, OperationNotSupportedException{
@@ -308,7 +303,7 @@ public class Alquileres implements IAlquileres {
 				}
 				}
 				
-				if(fechaDevolucion==null) {String sentenciaStr = "select matricula, dni, fechaAlquiler, fechaDevolucion from alquileres where matricula = ? and dni = ? and fechaAlquiler = ? and fechaDevolucion IS NULL ";
+			if(fechaDevolucion==null) {String sentenciaStr = "select matricula, dni, fechaAlquiler, fechaDevolucion from alquileres where matricula = ? and dni = ? and fechaAlquiler = ? and fechaDevolucion IS NULL ";
 				PreparedStatement sentencia = conexion.prepareStatement(sentenciaStr);
 				sentencia.setString(1, matricula);
 				sentencia.setString(2, dni);

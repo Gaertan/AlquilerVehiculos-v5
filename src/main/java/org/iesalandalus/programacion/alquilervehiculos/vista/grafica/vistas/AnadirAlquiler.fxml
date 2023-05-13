@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,9 +18,9 @@
 
 <AnchorPane prefHeight="546.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.grafica.controladoresvista.ControladorAnadirAlquiler">
    <children>
-      <GridPane alignment="CENTER" hgap="10.0" layoutX="54.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="222.0" prefWidth="392.0" vgap="10.0">
+      <GridPane alignment="CENTER" hgap="10.0" layoutX="50.0" layoutY="39.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="222.0" prefWidth="392.0" vgap="10.0">
          <children>
-            <Label fx:id="lbDni" alignment="CENTER_RIGHT" disable="true" layoutX="10.0" layoutY="72.0" prefHeight="27.0" prefWidth="301.0" text="DNI" textFill="#0026e4" GridPane.rowIndex="1">
+            <Label fx:id="lbDni" alignment="CENTER_RIGHT" disable="true" layoutX="10.0" layoutY="72.0" prefHeight="27.0" prefWidth="301.0" text="DNI" textFill="#0026e4" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -27,7 +28,7 @@
                   <Insets right="10.0" />
                </padding>
             </Label>
-            <Label fx:id="lbTelefono" alignment="CENTER_RIGHT" disable="true" layoutX="10.0" layoutY="122.0" prefHeight="27.0" prefWidth="301.0" text="Matricula" textFill="#0026e4" GridPane.rowIndex="2">
+            <Label fx:id="lbTelefono" alignment="CENTER_RIGHT" disable="true" layoutX="10.0" layoutY="122.0" prefHeight="27.0" prefWidth="301.0" text="Matricula" textFill="#0026e4" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -35,9 +36,25 @@
                   <Insets right="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="tfDni" disable="true" layoutX="310.0" layoutY="66.0" onAction="#buscarCliente" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="tfMatricula" disable="true" layoutX="310.0" layoutY="116.0" onAction="#buscarVehiculo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="tfDni" disable="true" layoutX="310.0" layoutY="66.0" onAction="#buscarCliente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="tfMatricula" disable="true" layoutX="310.0" layoutY="116.0" onAction="#buscarVehiculo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="dpFechaAlquiler" />
+            <Label fx:id="lbCliente" alignment="CENTER_RIGHT" disable="true" prefHeight="27.0" prefWidth="157.0" text="Cliente" textFill="#0026e4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lbCliente1" alignment="CENTER_RIGHT" contentDisplay="CENTER" disable="true" graphicTextGap="3.0" layoutX="181.0" layoutY="33.0" prefHeight="27.0" prefWidth="172.0" text="  Vehiculo" textAlignment="CENTER" textFill="#0026e4" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </Label>
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="255.0" />
@@ -48,11 +65,13 @@
          </padding>
          <rowConstraints>
             <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Label fx:id="lbFechaAlquiler" alignment="CENTER_RIGHT" disable="true" layoutX="32.0" layoutY="35.0" prefHeight="27.0" prefWidth="157.0" text="Fecha alquiler" textFill="#0026e4">
+      <Label fx:id="lbFechaAlquiler" alignment="CENTER_RIGHT" disable="true" layoutX="57.0" layoutY="26.0" prefHeight="27.0" prefWidth="157.0" text="Fecha alquiler" textFill="#0026e4">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -60,9 +79,9 @@
             <Insets right="10.0" />
          </padding>
       </Label>
-      <Button fx:id="btAnadir" layoutX="54.0" layoutY="429.0" mnemonicParsing="false" onAction="#anadirClick" prefHeight="46.0" prefWidth="125.0" text="Añadir" />
-      <Button fx:id="btCancelar" layoutX="211.0" layoutY="429.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="46.0" prefWidth="125.0" text="Volver" />
-      <Label fx:id="lbFechaDevolucion" alignment="CENTER_RIGHT" disable="true" layoutX="58.0" layoutY="313.0" prefHeight="27.0" prefWidth="157.0" text="Fecha devolucion" textFill="#0026e4">
+      <Button fx:id="btAnadir" layoutX="44.0" layoutY="459.0" mnemonicParsing="false" onAction="#anadirClick" prefHeight="46.0" prefWidth="125.0" text="Añadir" />
+      <Button fx:id="btCancelar" layoutX="198.0" layoutY="459.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="46.0" prefWidth="125.0" text="Volver" />
+      <Label fx:id="lbFechaDevolucion" alignment="CENTER_RIGHT" disable="true" layoutX="67.0" layoutY="306.0" prefHeight="27.0" prefWidth="157.0" text="Fecha devolucion" textFill="#0026e4">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -70,14 +89,14 @@
             <Insets right="10.0" />
          </padding>
       </Label>
-      <DatePicker fx:id="dpFechaDevolucion" layoutX="58.0" layoutY="365.0" onAction="#devolverAlquiler" />
+      <DatePicker fx:id="dpFechaDevolucion" layoutX="58.0" layoutY="346.0" />
       <CheckBox fx:id="cbSus" layoutX="405.0" layoutY="496.0" mnemonicParsing="false" onAction="#memeSus" />
       <TextField fx:id="textoSus" editable="false" layoutX="430.0" layoutY="492.0" prefHeight="35.0" prefWidth="47.0" visible="false">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <ToggleButton fx:id="tbCambiarListado" contentDisplay="TOP" layoutX="477.0" layoutY="36.0" mnemonicParsing="false" onAction="#cambiarListado" text="Cambiar listado disponibles" />
+      <ToggleButton fx:id="tbCambiarListado" contentDisplay="TOP" disable="true" layoutX="477.0" layoutY="14.0" mnemonicParsing="false" onAction="#cambiarListado" opacity="0.0" text="Cambiar listado disponibles" visible="false" />
       <ScrollPane fx:id="spListadoClientes" layoutX="465.0" layoutY="111.0" prefHeight="371.0" prefWidth="200.0">
          <content>
             <ListView fx:id="lvListadoClientes" prefHeight="371.0" prefWidth="193.0" visible="false" />
@@ -88,6 +107,16 @@
             <ListView fx:id="lvListadoVehiculos" prefHeight="371.0" prefWidth="193.0" visible="false" />
          </content>
       </ScrollPane>
-      <Button fx:id="btDevolver" layoutX="260.0" layoutY="361.0" mnemonicParsing="false" onAction="#devolverAlquiler" prefHeight="33.0" prefWidth="108.0" text="Devolver" />
+      <Button fx:id="btDevolver" layoutX="269.0" layoutY="342.0" mnemonicParsing="false" onAction="#devolverAlquiler" prefHeight="33.0" prefWidth="108.0" text="Devolver" />
+      <Separator layoutX="38.0" layoutY="381.0" prefHeight="7.0" prefWidth="417.0" />
+      <TextField fx:id="tfPrecio" layoutX="62.0" layoutY="419.0" />
+      <Label fx:id="lbPrecio" alignment="CENTER_RIGHT" disable="true" layoutX="62.0" layoutY="384.0" prefHeight="27.0" prefWidth="72.0" text="Precio" textFill="#0026e4">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </Label>
    </children>
 </AnchorPane>

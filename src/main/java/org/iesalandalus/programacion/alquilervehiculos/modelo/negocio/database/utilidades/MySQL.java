@@ -84,7 +84,7 @@ public class MySQL {
 		  
 		    statement.executeUpdate("CREATE TABLE IF NOT EXISTS clientes (nombre VARCHAR(40), dni VARCHAR(40) NOT NULL, telefono VARCHAR(40), PRIMARY KEY (dni)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
 		    statement.executeUpdate("CREATE TABLE IF NOT EXISTS vehiculos (marca VARCHAR(40), modelo VARCHAR(40), matricula VARCHAR(40) NOT NULL, cilindrada INT UNSIGNED, plazas TINYINT UNSIGNED, pma INT UNSIGNED, tipo VARCHAR(40), PRIMARY KEY (matricula)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
-		    statement.executeUpdate("CREATE TABLE IF NOT EXISTS alquileres (matricula VARCHAR(40) NOT NULL, dni VARCHAR(40) NOT NULL, fechaAlquiler DATE NOT NULL, fechaDevolucion DATE, KEY matricula (matricula), KEY dni (dni), KEY fechaAlquiler (fechaAlquiler), CONSTRAINT prestamos_ibfk_1 FOREIGN KEY (dni) REFERENCES clientes (dni) ON DELETE RESTRICT ON UPDATE CASCADE, CONSTRAINT prestamos_ibfk_2 FOREIGN KEY (matricula) REFERENCES vehiculos (matricula) ON DELETE RESTRICT ON UPDATE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+		    statement.executeUpdate("CREATE TABLE IF NOT EXISTS alquileres (matricula VARCHAR(40) NOT NULL, dni VARCHAR(40) NOT NULL, fechaAlquiler DATE NOT NULL, fechaDevolucion DATE, KEY matricula (matricula), KEY dni (dni), KEY fechaAlquiler (fechaAlquiler), CONSTRAINT prestamos_ibfk_1 FOREIGN KEY (dni) REFERENCES clientes (dni) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT prestamos_ibfk_2 FOREIGN KEY (matricula) REFERENCES vehiculos (matricula) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
 	
 		    conexion.close();
 		} catch (SQLException e) {e.printStackTrace();

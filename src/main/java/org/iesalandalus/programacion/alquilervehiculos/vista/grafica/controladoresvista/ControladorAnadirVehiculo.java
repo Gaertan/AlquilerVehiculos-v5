@@ -29,7 +29,7 @@ import javafx.util.StringConverter;
 public class ControladorAnadirVehiculo{
 	private Controlador controller;
     private static final int CILINDRADA_MAX_VALUE = 1000;
-	private ObservableList<Vehiculo> obsVehiculos;
+//	private ObservableList<Vehiculo> obsVehiculos;
 	private Vehiculo v;
 
     @FXML
@@ -97,10 +97,10 @@ public class ControladorAnadirVehiculo{
 		tfCilindrada.setDisable(true);slideCilindrada.setDisable(true);
 	}
 
-	public void setVehiculos(ObservableList<Vehiculo> vehiculos)
-	{
-		this.obsVehiculos = vehiculos;
-	}
+//	public void setVehiculos(ObservableList<Vehiculo> vehiculos)
+//	{
+//		this.obsVehiculos = vehiculos;
+//	}
 	public void cargaDatosVehiculo(Vehiculo v)
 	//obtiene el vehiculo, dependiendo de la subclase, cambia el CB para activar su pestaña correspondiente.
 	{
@@ -192,7 +192,7 @@ public class ControladorAnadirVehiculo{
         {    String tipoVehiculo = cbTipo.getValue();
         	switch(tipoVehiculo) {
         case "Turismo":
-            Turismo turismo = new Turismo(tfMarca.getText(), tfModelo.getText(), Integer.parseInt(tfCilindrada.getText()), tfMatricula.getText());
+            Turismo turismo = new Turismo(tfMarca.getText(), tfModelo.getText(),(int)Math.floor(Double.parseDouble(tfCilindrada.getText())), tfMatricula.getText());
             // Configura las propiedades del objeto Turismo según la entrada del usuario
             // ...
             controller.insertar(turismo);
@@ -215,16 +215,12 @@ public class ControladorAnadirVehiculo{
             break;
     }
 
-			try {
-				controller.insertar(v);
-			} catch (OperationNotSupportedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            obsVehiculos.add(v);
-
-
-
+//			try {
+//				controller.insertar(v);
+//			} catch (OperationNotSupportedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			//Cerramos el escenario actual
 			Stage escenario = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	    	escenario.close();
@@ -247,7 +243,10 @@ public class ControladorAnadirVehiculo{
     private void initializeCilindradaBinding() {
         slideCilindrada.setMax(CILINDRADA_MAX_VALUE);
         StringProperty cilindradaString = tfCilindrada.textProperty();
-        DoubleProperty cilindradaDouble = slideCilindrada.valueProperty();
+        DoubleProperty  cilindradaDouble = slideCilindrada.valueProperty();
+
+
+ 
         Bindings.bindBidirectional(cilindradaString, cilindradaDouble, new StringConverter<Number>() {
             @Override
             public Number fromString(String s) {
@@ -271,9 +270,9 @@ public class ControladorAnadirVehiculo{
 		return v;
 	}
 
-	public void setListado(ObservableList<Vehiculo> obsVehiculos2) {
-		this.obsVehiculos=obsVehiculos2;
-	}
+//	public void setListado(ObservableList<Vehiculo> obsVehiculos2) {
+//		this.obsVehiculos=obsVehiculos2;
+//	}
 
 	public void setRegistro(Vehiculo registro) {
 		v=registro;
