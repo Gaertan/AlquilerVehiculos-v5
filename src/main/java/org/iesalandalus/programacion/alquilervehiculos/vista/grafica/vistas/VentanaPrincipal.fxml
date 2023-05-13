@@ -38,7 +38,13 @@
          </padding>
          <children>
             <Button fx:id="btListadoAlquileres" mnemonicParsing="false" onAction="#listadoAlquileres" prefHeight="71.0" prefWidth="302.0" text="Listado de Alquileres">
-			</Button>
+               <graphic>
+                  <ImageView fitHeight="83.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/alquiler.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </HBox>
       <Button fx:id="btCerrar" mnemonicParsing="false" onAction="#salir" prefHeight="38.0" prefWidth="150.0" text="Cerrar" />

@@ -94,7 +94,24 @@ public class ControladorAnadirVehiculo{
 		cbTipo.getItems().add("Turismo");
 		cbTipo.getItems().add("Furgoneta");
 		cbTipo.getItems().add("Autobus");
-		tfCilindrada.setDisable(true);slideCilindrada.setDisable(true);
+        cbTipo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                switch (newValue) {
+                    case "Furgoneta":
+                        tpTipos.getSelectionModel().select(tptFurgoneta);
+                        break;
+                    case "Turismo":
+                        tpTipos.getSelectionModel().select(tptTurismo);
+                        break;
+                    case "Autobus":
+                        tpTipos.getSelectionModel().select(tptAutobus);
+                        break;
+                    default:
+                        break;
+                }
+            }});
+		tfCilindrada.setDisable(true);slideCilindrada.setDisable(true); 
+        
 	}
 
 //	public void setVehiculos(ObservableList<Vehiculo> vehiculos)
